@@ -2,6 +2,8 @@ module Backend exposing(..)
 import Models exposing(Movie, Preferences)
 import List exposing (all,any,length,map, reverse)
 
+completaAca = identity
+
 filtrarPeliculasPorPalabrasClave : String -> List Movie -> List Movie
 filtrarPeliculasPorPalabrasClave palabras listaDePeliculas = List.filter (tienePalabras (dePalabraAListaDePalabras palabras)) listaDePeliculas
 
@@ -36,4 +38,25 @@ darLikeAPelicula id = map (incrementarUnLike id)
 incrementarUnLike : Int -> Movie -> Movie
 incrementarUnLike id pelicula = if (id == pelicula.id) then {pelicula | likes = pelicula.likes + 1} else pelicula
 
+-- **************
+-- Requerimiento: cargar preferencias a través de un popup modal,
+--                calcular índice de coincidencia de cada película y
+--                mostrarlo junto a la misma;
+-- **************
 
+calcularPorcentajeDeCoincidencia : Preferences -> List Movie -> List Movie
+calcularPorcentajeDeCoincidencia preferencias = completaAca
+
+
+--calcularPorcentajeDeCoincidencia : Preferences -> List Movie -> List Movie
+--calcularPorcentajeDeCoincidencia preferencias peliculas= preferenciasPorActor + preferenciasPorGenero + preferenciasPorPalabraClave
+
+
+--preferenciasPorGenero : Preferences -> List Movie -> Int
+--preferenciasPorGenero preferencias peliculas =  preferencias.genre peliculas
+
+--preferenciasPorActriz : Preferences -> List Movie -> Int
+--preferenciasPorActor preferencias peliculas = preferencias.favoriteActor
+
+--preferenciasPorPalabraClave : Preferences -> List Movie -> Int
+--preferenciasPorPalabraClave preferencias peliculas = preferencias.keywords
