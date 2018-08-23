@@ -53,7 +53,7 @@ calcularPorcentajeDeCoincidencia preferencias = completaAca
 --calcularPorcentajeDeCoincidencia preferencia listaDePeliculas = map (asignarPorcentaje preferencia) listaDePeliculas
 
 --asignarPorcentaje : Movie -> Movie
---asignarPorcentaje preferencia pelicula = { pelicula |  porcentaje = minimum[(calcularPorcentaje preferencia pelicula),100]}
+--asignarPorcentaje preferencia pelicula = { pelicula | matchPercentage = minimum[(calcularPorcentaje preferencia pelicula),100]}
 
 --calcularPorcentaje : Preferences-> Movie -> Int
 --calcularPorcentaje preferencia pelicula = (calcularPorcentajePalabra preferencias.keywords pelicula.title) + (calcularPorcentajeGenero preferencias.genre pelicula.genre) + (calcularPorcentajeActor preferencias.favoriteActor pelicula.actors) + calcularLePuedeGustar 
