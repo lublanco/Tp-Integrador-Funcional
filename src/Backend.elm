@@ -48,15 +48,21 @@ calcularPorcentajeDeCoincidencia : Preferences -> List Movie -> List Movie
 calcularPorcentajeDeCoincidencia preferencias = completaAca
 
 
+
 --calcularPorcentajeDeCoincidencia : Preferences -> List Movie -> List Movie
---calcularPorcentajeDeCoincidencia preferencias peliculas= preferenciasPorActor + preferenciasPorGenero + preferenciasPorPalabraClave
+--calcularPorcentajeDeCoincidencia preferencia listaDePeliculas = map (asignarPorcentaje preferencia) listaDePeliculas
 
+--asignarPorcentaje : Movie -> Movie
+--asignarPorcentaje preferencia pelicula = { pelicula |  porcentaje = minimum[(calcularPorcentaje preferencia pelicula),100]}
 
---preferenciasPorGenero : Preferences -> List Movie -> Int
---preferenciasPorGenero preferencias peliculas =  preferencias.genre peliculas
+--calcularPorcentaje : Preferences-> Movie -> Int
+--calcularPorcentaje preferencia pelicula = (calcularPorcentajePalabra preferencias.keywords pelicula.title) + (calcularPorcentajeGenero preferencias.genre pelicula.genre) + (calcularPorcentajeActor preferencias.favoriteActor pelicula.actors) + calcularLePuedeGustar 
 
---preferenciasPorActriz : Preferences -> List Movie -> Int
---preferenciasPorActor preferencias peliculas = preferencias.favoriteActor
+--calcularPorcentajePalabra: Preferences -> Movie -> Int
+--calcularPorcentajePalabra palabraClave tituloPelicula =  
 
---preferenciasPorPalabraClave : Preferences -> List Movie -> Int
---preferenciasPorPalabraClave preferencias peliculas = preferencias.keywords
+--calcularPorcentajeActor: Preferences -> Movie -> Int
+--calcularPorcentajeActor preferencias pelicula = if (member preferencias.favoriteActor pelicula.actors) then 50 else 0
+
+--calcularPorcentajeGenero : Preferences -> Movie -> Int
+--calcularPorcentajeGenero preferencias pelicula = if (member preferencias.genre pelicula.genre) then 60 else 0
