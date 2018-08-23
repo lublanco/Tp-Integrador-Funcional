@@ -45,24 +45,19 @@ incrementarUnLike id pelicula = if (id == pelicula.id) then {pelicula | likes = 
 -- **************
 
 calcularPorcentajeDeCoincidencia : Preferences -> List Movie -> List Movie
-calcularPorcentajeDeCoincidencia preferencias = completaAca
+calcularPorcentajeDeCoincidencia preferencias = List.map (asignarPorcentaje  preferencias)
 
+asignarPorcentaje  : Preferences -> Movie -> Movie
+asignarPorcentaje  preferencias pelicula = {pelicula | matchPercentage = porcentajePelicula preferencias pelicula}
 
+porcentajePelicula : Preferences -> Movie -> Int
+porcentajePelicula preferencias pelicula = if (calcularPorcentaje preferencias pelicula) > 100 then 100 else (calcularPorcentaje preferencias pelicula)
 
---calcularPorcentajeDeCoincidencia : Preferences -> List Movie -> List Movie
---calcularPorcentajeDeCoincidencia preferencia listaDePeliculas = map (asignarPorcentaje preferencia) listaDePeliculas
+calcularPorcentaje : Preferences -> Movie -> Int
+calcularPorcentaje preferencias pelicula = (calcularPorcentajeActor preferencias pelicula) + (calcularPorcentajeGenero preferencias pelicula)
 
---asignarPorcentaje : Movie -> Movie
---asignarPorcentaje preferencia pelicula = { pelicula | matchPercentage = minimum[(calcularPorcentaje preferencia pelicula),100]}
+calcularPorcentajeActor : Preferences -> Movie -> Int
+calcularPorcentajeActor preferencia pelicula = if (List.member preferencia.favoriteActor pelicula.actors) then 50 else 0
 
---calcularPorcentaje : Preferences-> Movie -> Int
---calcularPorcentaje preferencia pelicula = (calcularPorcentajePalabra preferencias.keywords pelicula.title) + (calcularPorcentajeGenero preferencias.genre pelicula.genre) + (calcularPorcentajeActor preferencias.favoriteActor pelicula.actors) + calcularLePuedeGustar 
-
---calcularPorcentajePalabra: Preferences -> Movie -> Int
---calcularPorcentajePalabra palabraClave tituloPelicula =  
-
---calcularPorcentajeActor: Preferences -> Movie -> Int
---calcularPorcentajeActor preferencias pelicula = if (member preferencias.favoriteActor pelicula.actors) then 50 else 0
-
---calcularPorcentajeGenero : Preferences -> Movie -> Int
---calcularPorcentajeGenero preferencias pelicula = if (member preferencias.genre pelicula.genre) then 60 else 0
+calcularPorcentajeGenero : Preferences -> Movie -> Int
+calcularPorcentajeGenero preferencia pelicula = if (List.member preferencia.genre pelicula.genre) then 60 else 0
