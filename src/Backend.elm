@@ -54,10 +54,16 @@ porcentajePelicula : Preferences -> Movie -> Int
 porcentajePelicula preferencias pelicula = if (calcularPorcentaje preferencias pelicula) > 100 then 100 else (calcularPorcentaje preferencias pelicula)
 
 calcularPorcentaje : Preferences -> Movie -> Int
-calcularPorcentaje preferencias pelicula = (calcularPorcentajeActor preferencias pelicula) + (calcularPorcentajeGenero preferencias pelicula)
+calcularPorcentaje preferencias pelicula = (porcentajePorPalabra preferencias pelicula) + (calcularPorcentajeActor preferencias pelicula) + (calcularPorcentajeGenero preferencias pelicula)
 
 calcularPorcentajeActor : Preferences -> Movie -> Int
-calcularPorcentajeActor preferencia pelicula = if (List.member preferencia.favoriteActor pelicula.actors) then 50 else 0
+calcularPorcentajeActor preferencias pelicula = if (List.member preferencias.favoriteActor pelicula.actors) then 50 else 0
 
 calcularPorcentajeGenero : Preferences -> Movie -> Int
-calcularPorcentajeGenero preferencia pelicula = if (List.member preferencia.genre pelicula.genre) then 60 else 0
+calcularPorcentajeGenero preferencias pelicula = if (List.member preferencias.genre pelicula.genre) then 60 else 0
+
+porcentajePorPalabra : Preferences -> Movie -> Int
+porcentajePorPalabra preferencias pelicula = 20 * (List.length (List.filter (condicion (dePalabraAListaDePalabras pelicula.title))(dePalabraAListaDePalabras preferencias.keywords))) 
+
+condicion : List String -> String -> Bool 
+condicion tituloPelicula elemento = List.member elemento tituloPelicula
