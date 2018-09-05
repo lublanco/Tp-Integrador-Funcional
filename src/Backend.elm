@@ -38,6 +38,11 @@ darLikeAPelicula id = map (incrementarUnLike id)
 incrementarUnLike : Int -> Movie -> Movie
 incrementarUnLike id pelicula = if (id == pelicula.id) then {pelicula | likes = pelicula.likes + 1} else pelicula
 
+-- **************
+-- Requerimiento: cargar preferencias a través de un popup modal,
+--                calcular índice de coincidencia de cada película y
+--                mostrarlo junto a la misma;
+-- **************
 
 calcularPorcentajeDeCoincidencia : Preferences -> List Movie -> List Movie
 calcularPorcentajeDeCoincidencia preferencias = List.map (asignarPorcentaje  preferencias)
@@ -76,4 +81,5 @@ porcentajePorAsociado genero posibleGenero =
  case genero of
  "Horror" -> if posibleGenero == "Suspense" then 15 else 0
  "Suspense" -> if posibleGenero == "Horror" then 15 else 0
+ "animada" -> if posibleGenero == "Superhero" then 15 else 0
  _ -> 0
