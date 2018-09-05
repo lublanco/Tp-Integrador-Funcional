@@ -67,3 +67,24 @@ porcentajePorPalabra preferencias pelicula = 20 * (List.length (List.filter (con
 
 condicion : List String -> String -> Bool 
 condicion tituloPelicula elemento = List.member elemento tituloPelicula
+
+
+calcularPorcentajeGenerosAsociados : Preferences -> Movie -> Int
+calcularPorcentajeGenerosAsociados preferencias pelicula = lePuedeGustar preferencias.genre pelicula.genre
+
+lePuedeGustar : String -> List String -> Int
+lePuedeGustar genero = List.sum<<List.map (porcentajePorAsociado genero)
+
+
+porcentajePorAsociado : String -> String -> Int
+porcentajePorAsociado genero posibleGenero = 
+    case genero of
+        "Horror" -> if posibleGenero == "Suspense" then 15 else 0
+        "Suspense" -> if posibleGenero == "Horror" then 15 else 0
+        
+
+
+
+
+
+
