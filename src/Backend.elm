@@ -38,11 +38,6 @@ darLikeAPelicula id = map (incrementarUnLike id)
 incrementarUnLike : Int -> Movie -> Movie
 incrementarUnLike id pelicula = if (id == pelicula.id) then {pelicula | likes = pelicula.likes + 1} else pelicula
 
--- **************
--- Requerimiento: cargar preferencias a través de un popup modal,
---                calcular índice de coincidencia de cada película y
---                mostrarlo junto a la misma;
--- **************
 
 calcularPorcentajeDeCoincidencia : Preferences -> List Movie -> List Movie
 calcularPorcentajeDeCoincidencia preferencias = List.map (asignarPorcentaje  preferencias)
@@ -54,7 +49,7 @@ porcentajePelicula : Preferences -> Movie -> Int
 porcentajePelicula preferencias pelicula = if (calcularPorcentaje preferencias pelicula) > 100 then 100 else (calcularPorcentaje preferencias pelicula)
 
 calcularPorcentaje : Preferences -> Movie -> Int
-calcularPorcentaje preferencias pelicula = (porcentajePorPalabra preferencias pelicula) + (calcularPorcentajeActor preferencias pelicula) + (calcularPorcentajeGenero preferencias pelicula)
+calcularPorcentaje preferencias pelicula = (porcentajePorPalabra preferencias pelicula) + (calcularPorcentajeActor preferencias pelicula) + (calcularPorcentajeGenero preferencias pelicula) + (calcularPorcentajeGenerosAsociados preferencias pelicula)
 
 calcularPorcentajeActor : Preferences -> Movie -> Int
 calcularPorcentajeActor preferencias pelicula = if (List.member preferencias.favoriteActor pelicula.actors) then 50 else 0
@@ -78,13 +73,7 @@ lePuedeGustar genero = List.sum<<List.map (porcentajePorAsociado genero)
 
 porcentajePorAsociado : String -> String -> Int
 porcentajePorAsociado genero posibleGenero = 
-    case genero of
-        "Horror" -> if posibleGenero == "Suspense" then 15 else 0
-        "Suspense" -> if posibleGenero == "Horror" then 15 else 0
-        
-
-
-
-
-
-
+ case genero of
+ "Horror" -> if posibleGenero == "Suspense" then 15 else 0
+ "Suspense" -> if posibleGenero == "Horror" then 15 else 0
+ _ -> 0
